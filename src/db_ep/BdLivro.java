@@ -11,7 +11,7 @@ import java.util.Scanner;
 import models.livro;
 
 
-// Insercao de LIVRO //
+// INTO TO 
 public class BdLivro {
 	static connBd bd = new connBd();
 	static Connection conn;
@@ -21,6 +21,8 @@ public class BdLivro {
 	}
 	
 	public void postLivro() {		
+		System.out.println("INSERCAO DE LIVROS\n\n");
+		
 		Scanner key = new Scanner(System.in);
 		 
 		System.out.println("Inserção de Livro\n >");
@@ -82,8 +84,9 @@ public class BdLivro {
 		}
 	}
 	
-	// LISTAR LIVROS
+	// SELECT LIVROS
 	public static List<livro> listarLivros() throws SQLException {
+		System.out.println("LISTA DE LIVROS\n");
 		
 		String sql = "SELECT * FROM livro;";
 		
@@ -118,22 +121,31 @@ public class BdLivro {
 			throw new RuntimeException(e);
 		}
 		
-		while(lista).hasNext()){
-			System.out.print(livro.getTituloDoLivro() + "\n" + next.get);
+		// LISTAR OS OBJETOS DO LIST<LIST>
+		while(lista.next()){// LISTAR OS REGISTROS DE LIVRO
+			System.out.print(livro.getTituloDoLivro() + "\n");
 		}
 	}
-	
+
+	// UPDATE
 	public void alterarLivro() {
 		// PENSAR A FUNCAO DE ALTERACAO //
 	}
 	
-	public void removeLivro(){
-		String sql = "DELETE FROM livro WHERE titulo_do_livro = ?";
+	//DELETE
+	public void removeLivro() throws SQLException{
+		Scanner key = new Scanner(System.in);
+		System.out.println("REMOCAO DE LIVROS\n");
+		
+		System.out.println("Digite o Titulo do Livro\n >");
+		String remocaotituloDoLivro = key.nextLine();
+		
+		String sql = "DELETE FROM livro WHERE titulo_do_livro = " + remocaotituloDoLivro + ";";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setTituloDolivro(1, getTituloDoLivro);
 		
 		stmt.execute();
 		stmt.close();
+		key.close();
 	}
 }
