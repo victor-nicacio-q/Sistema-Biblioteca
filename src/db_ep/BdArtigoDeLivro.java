@@ -46,7 +46,7 @@ public class BdArtigoDeLivro {
 		String editora = key.nextLine();
 		
 		System.out.println("Digite o ano de publicação\n >");
-        String anoPublicacao = key.nextInt();
+        int anoPublicacao = key.nextInt();
         
         System.out.println("Digite o Titulo Original do Artigo\n >");
 		String tituloOriginal = key.nextLine();
@@ -61,18 +61,19 @@ public class BdArtigoDeLivro {
 		int idLocPub = key.nextInt();
 		
 		System.out.println("Digite o Titulo da Publicação\n >");
-		int tituloPub = key.nextLine();
+		String tituloPub = key.nextLine();
 		
         key.close();
         //FALTA DAQUI PRA BAIXO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
-		String sql = "INSERT INTO livro (titulo_do_livro, titulo_pub, tipo, editora, n_edicao, ano_publicacao, autores_editores, titulo_orig, n_pags, IdLocPu" +
+		String sql = "INSERT INTO artigo (titulo_do_artigo, titulo_pub, titulo_do_livro, pagina_inicial, pagina_final, capitulo, editora, ano_de_publicacao, titulo_original, autores_do_artigo, editores_do_artigo, IdLocPub)" +
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)";
 		
 		try{
 			PreparedStatement stmt = this.conn.prepareStatement(sql);
-			
-			stmt.setString(1, tituloDoLivro);
+			//arrumar aqui
+            stmt.setString(1, tituloDoArtigo);
+			stmt.setString(2, tituloPub);            
 			stmt.setString(2, tipo);
 			stmt.setString(3, editora);
 			stmt.setInt(4, edicao);
@@ -81,7 +82,6 @@ public class BdArtigoDeLivro {
 			stmt.setString(7, tituloOriginal);
 			stmt.setInt(8, nPaginas);
 			stmt.setInt(9, idLocPub);
-			stmt.setInt(10, tituloPub);
 			
 			stmt.execute();
 			stmt.close();

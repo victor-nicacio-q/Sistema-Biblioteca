@@ -59,7 +59,7 @@ public class BdLivro {
 		
 		key.close();
 		
-		String sql = "INSERT INTO livro (titulo_do_livro, titulo_pub, tipo, editora, n_edicao, ano_publicacao, autores_editores, titulo_orig, n_pags, IdLocPu" +
+		String sql = "INSERT INTO livro (titulo_do_livro, titulo_pub, tipo, editora, n_edicao, ano_publicacao, autores_editores, titulo_orig, n_pags, IdLocPub) " +
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)";
 		
 		try{
