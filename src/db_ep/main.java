@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
-import models.livro;
 
 public class main {
 	
@@ -29,19 +28,19 @@ public class main {
 			
 			switch(op) {
 			case 1:
-				inserirLivro();
+				//BdLivro.postLivro();
 				break;
 			
 			case 2:
-				inserirArtigo();
+				//BdArtigo.postArtigo();
 				break;
 				
 			case 3:
-				inserirMonografia();
+				//BdMonografia.postMonografia();
 				break;
 				
 			case 4:
-				listarLivros();
+				BdLivro.listarLivros();
 				break;
 				
 			default:

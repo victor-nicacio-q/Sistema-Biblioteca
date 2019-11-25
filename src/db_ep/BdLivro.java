@@ -5,13 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import models.livro;
 
+
+// Insercao de LIVRO //
 public class BdLivro {
-	private connBd bd = new connBd();
-	private Connection conn;
+	static connBd bd = new connBd();
+	static Connection conn;
 	
 	public BdLivro() throws SQLException{
 		this.conn = connBd.getConnection();
@@ -79,13 +82,17 @@ public class BdLivro {
 		}
 	}
 	
-	public List<livro> listarLivros() throws SQLException {
+	// LISTAR LIVROS
+	public static List<livro> listarLivros() throws SQLException {
+		
 		String sql = "SELECT * FROM livro;";
 		
 		List<livro> lista = new ArrayList<>();
 		
 		try {
-			PreparedStatement stmt = this.conn.prepareStatement(sql);
+			conn = bd.getConnection();
+			
+			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()) {
@@ -110,6 +117,23 @@ public class BdLivro {
 		}catch(Exception e) {
 			throw new RuntimeException(e);
 		}
-		return lista;
+		
+		while(lista).hasNext()){
+			System.out.print(livro.getTituloDoLivro() + "\n" + next.get);
+		}
+	}
+	
+	public void alterarLivro() {
+		// PENSAR A FUNCAO DE ALTERACAO //
+	}
+	
+	public void removeLivro(){
+		String sql = "DELETE FROM livro WHERE titulo_do_livro = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setTituloDolivro(1, getTituloDoLivro);
+		
+		stmt.execute();
+		stmt.close();
 	}
 }
