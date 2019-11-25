@@ -8,56 +8,63 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-import models.livro;
+import models.artigoDeLivro;
 
 
 // INTO TO 
-public class BdLivro {
+public class BdArtigoDeLivro {
 	static connBd bd = new connBd();
 	static Connection conn;
 	
-	public BdLivro() throws SQLException{
+	public BdArtigoDeLivro() throws SQLException{
 		this.conn = connBd.getConnection();
 	}
 	
 	public void postLivro() {		
-		System.out.println("INSERCAO DE LIVROS\n\n");
+		System.out.println("INSERCAO DE ARTIGOS\n\n");
 		
 		Scanner key = new Scanner(System.in);
 		 
-		System.out.println("Inserção de Livro\n >");
+		System.out.println("Inserção de Artigo\n >");
+		
+		System.out.println("Digite o Titulo do Artigo\n >");
+		String tituloDoArtigo = key.nextLine();
 		
 		System.out.println("Digite o Titulo do Livro\n >");
 		String tituloDoLivro = key.nextLine();
 		
-		System.out.println("Digite o Tipo do Livro\n >");
-		String tipo = key.nextLine();
+		System.out.println("Digite a pagina inicial \n >");
+		String paginaInicial = key.nextInt();
 		
-		System.out.println("Digite a Editora do Livro\n >");
+		System.out.println("Digite a pagina final\n >");
+		int paginaFinal = key.nextInt();
+		
+		System.out.println("Digite o capitulo do Artigo no Livro\n >");
+		int capitulo = key.nextInt();
+		
+		System.out.println("Digite a editora\n >");
 		String editora = key.nextLine();
 		
-		System.out.println("Digite a Edicao do Livro\n >");
-		int edicao = key.nextInt();
-		
-		System.out.println("Digite o Ano de Publicacao do Livro\n >");
-		int anoPublicacao = key.nextInt();
-		
-		System.out.println("Digite os Autores/Editores do Livro\n >");
-		String autoresEditores = key.nextLine();
-		
-		System.out.println("Digite o Titulo Original do Livro\n >");
+		System.out.println("Digite o ano de publicação\n >");
+        String anoPublicacao = key.nextInt();
+        
+        System.out.println("Digite o Titulo Original do Artigo\n >");
 		String tituloOriginal = key.nextLine();
 		
-		System.out.println("Digite o Numero de Paginas do Livro\n >");
-		int nPaginas = key.nextInt();
+		System.out.println("Digite o nome dos autores do Artigo\n >");
+		int autoresArtigo = key.nextLine();
 		
-		System.out.println("Digite o ID de Localização da Publicação\n >");
+		System.out.println("Digite o nome dos editores do Artigo\n >");
+        int editoresArtigo = key.nextLine();
+        
+        System.out.println("Digite o ID de Localização da Publicação\n >");
 		int idLocPub = key.nextInt();
 		
 		System.out.println("Digite o Titulo da Publicação\n >");
 		int tituloPub = key.nextLine();
 		
-		key.close();
+        key.close();
+        //FALTA DAQUI PRA BAIXO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
 		String sql = "INSERT INTO livro (titulo_do_livro, titulo_pub, tipo, editora, n_edicao, ano_publicacao, autores_editores, titulo_orig, n_pags, IdLocPu" +
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)";
@@ -84,9 +91,9 @@ public class BdLivro {
 		}
 	}
 	
-	// SELECT LIVROS
-	public static List<livro> listarLivros() throws SQLException {
-		System.out.println("LISTA DE LIVROS\n");
+	// SELECT ARTIGOS
+	public static List<livro> listarARTIGOS() throws SQLException {
+		System.out.println("LISTA DE ARTIGOS\n");
 		
 		String sql = "SELECT * FROM livro;";
 		
@@ -145,7 +152,7 @@ public class BdLivro {
 	//DELETE
 	public void removeLivro() throws SQLException{
 		Scanner key = new Scanner(System.in);
-		System.out.println("REMOCAO DE LIVROS\n");
+		System.out.println("REMOCAO DE ARTIGOS\n");
 		
 		System.out.println("Digite o Titulo do Livro\n >");
 		String remocaotituloDoLivro = key.nextLine();
