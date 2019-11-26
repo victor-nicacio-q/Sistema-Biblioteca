@@ -21,35 +21,35 @@ public class BdArtigoDeLivro {
 	}
 	
 	public void postLivro() {		
-		System.out.println("INSERCAO DE ARTIGO DE LIVRO\n\n");
+		System.out.println("INSERCAO DE ARTIGOS DE PERIODICO\n\n");
 		
 		Scanner key = new Scanner(System.in);
 		 
 		System.out.println("Inserção de Artigo\n >");
 		
 		System.out.println("Digite o Titulo do Artigo\n >");
-		String tituloDoArtigo = key.nextLine();
-		
-		System.out.println("Digite o Titulo do Livro\n >");
-		String tituloDoLivro = key.nextLine();
-		
+        String tituloDoArtigo = key.nextLine();
+
+        System.out.println("Digite o Titulo do Artigo\n >");
+		String tituloDoPeriodico = key.nextLine();
+			
 		System.out.println("Digite a pagina inicial \n >");
 		int paginaInicial = key.nextInt();
 		
 		System.out.println("Digite a pagina final\n >");
 		int paginaFinal = key.nextInt();
 		
-		System.out.println("Digite o capitulo do Artigo no Livro\n >");
-		int capitulo = key.nextInt();
+		System.out.println("Digite o numero do volume\n >");
+		int volume = key.nextInt();
 		
 		System.out.println("Digite a editora\n >");
 		String editora = key.nextLine();
 		
 		System.out.println("Digite o ano de publicação\n >");
         int anoPublicacao = key.nextInt();
-        
-        System.out.println("Digite o Titulo Original do Artigo\n >");
-		String tituloOriginal = key.nextLine();
+
+        System.out.println("Digite o mes de publicação\n >");
+        int mesPublicacao = key.nextInt();
 		
 		System.out.println("Digite o nome dos autores do Artigo\n >");
 		String autoresArtigo = key.nextLine();
@@ -64,24 +64,24 @@ public class BdArtigoDeLivro {
 		String tituloPub = key.nextLine();
 		
         key.close();
+        //FALTA DAQUI PRA BAIXO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
-		String sql = "INSERT INTO artigo_de_livro (titulo_do_artigo, titulo_pub, titulo_do_livro, pagina_inicial, pagina_final, capitulo, editora, ano_de_publicacao, titulo_original, autores_do_artigo, editores_do_artigo, IdLocPub)" +
-					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO artigo_de_periodico (titulo_do_artigo, titulo_pub, titulo_do_periodico, pagina_inicial, pagina_final, numero_do_volume, editora, ano_de_publicacao, autores_do_artigo, editores_do_artigo, IdLocPub)" +"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try{
 			PreparedStatement stmt = this.conn.prepareStatement(sql);
+			//arrumar aqui
             stmt.setString(1, tituloDoArtigo);
 			stmt.setString(2, tituloPub);            
-			stmt.setString(3, tituloDoLivro);
+			stmt.setString(3, tituloDoPeriodico);
 			stmt.setInt(4, paginaInicial);
 			stmt.setInt(5, paginaFinal);
-			stmt.setInt(6, capitulo);
+			stmt.setInt(6, volume);
 			stmt.setString(7, editora);
 			stmt.setInt(8, anoPublicacao);
-			stmt.setString(9, tituloOriginal);
-			stmt.setString(10, autoresArtigo);
-			stmt.setString(11, editoresArtigo);
-			stmt.setInt(12, idLocPub);
+			stmt.setString(9, autoresArtigo);
+			stmt.setString(10, editoresArtigo);
+			stmt.setInt(11, idLocPub);
 			
 			stmt.execute();
 			stmt.close();
@@ -93,9 +93,9 @@ public class BdArtigoDeLivro {
 	
 	// SELECT ARTIGOS DE LIVRO
 	public static List<livro> listarARTIGOS() throws SQLException {
-		System.out.println("LISTA DE ARTIGOS DE LIVRO\n");
+		System.out.println("LISTA DE ARTIGOS DE PERIODICO\n");
 		
-		String sql = "SELECT * FROM artigo_de_livro;";
+		String sql = "SELECT * FROM artigo_de_periodico;";
 		
 		List<livro> lista = new ArrayList<>();
 		
@@ -107,9 +107,9 @@ public class BdArtigoDeLivro {
 			
 			while(rs.next()) {
 				artigoLivro a = new artigoDeLivro();
-				
-				a.setTituloDoArtigo((rs.getString("titulo_do_artigo")));
-				a.setTituloDoLivro(rs.getString("titulo_do_livro"));
+                //ARRUMAR AQUI >>>>>>>>>>>>>>>>>>>>>>
+				a.setTituloArtigo((rs.getString("titulo_do_artigo")));
+				a.setTituloPeriodico(rs.getString("titulo_do_periodico"));
 				a.setPaginaInicial(rs.getInt("pagina_inicial"));
 				a.setPaginaFinal(rs.getInt("pagina_final"));
 				a.setCapitulo(rs.getInt("capitulo"));
@@ -156,7 +156,7 @@ public class BdArtigoDeLivro {
 	//DELETE
 	public void removeLivro() throws SQLException{
 		Scanner key = new Scanner(System.in);
-		System.out.println("REMOCAO DE ARTIGO DE LIVRO\n");
+		System.out.println("REMOCAO DE ARTIGOS\n");
 		
 		System.out.println("Digite o Titulo do Artigo\n >");
 		String remocaotituloDoLivro = key.nextLine();
