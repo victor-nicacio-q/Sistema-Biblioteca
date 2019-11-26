@@ -104,7 +104,7 @@ public class BdLivro {
 				l.setTituloDoLivro(rs.getString("titulo_do_livro"));
 				l.setTipo(rs.getString("tipo"));
 				l.setEditora(rs.getString("editora"));
-				l.setEdicao(rs.getInt("editora"));
+				l.setEdicao(rs.getInt("edicao"));
 				l.setAnoPublicacao(rs.getInt("ano_publicacao"));
 				l.setAutoresEditores(rs.getString("autores_editores"));
 				l.setTituloOriginal(rs.getString("titulo_original"));

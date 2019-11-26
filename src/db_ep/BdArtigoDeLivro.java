@@ -34,7 +34,7 @@ public class BdArtigoDeLivro {
 		String tituloDoLivro = key.nextLine();
 		
 		System.out.println("Digite a pagina inicial \n >");
-		String paginaInicial = key.nextInt();
+		int paginaInicial = key.nextInt();
 		
 		System.out.println("Digite a pagina final\n >");
 		int paginaFinal = key.nextInt();
@@ -52,10 +52,10 @@ public class BdArtigoDeLivro {
 		String tituloOriginal = key.nextLine();
 		
 		System.out.println("Digite o nome dos autores do Artigo\n >");
-		int autoresArtigo = key.nextLine();
+		String autoresArtigo = key.nextLine();
 		
 		System.out.println("Digite o nome dos editores do Artigo\n >");
-        int editoresArtigo = key.nextLine();
+        String editoresArtigo = key.nextLine();
         
         System.out.println("Digite o ID de Localização da Publicação\n >");
 		int idLocPub = key.nextInt();
@@ -66,22 +66,24 @@ public class BdArtigoDeLivro {
         key.close();
         //FALTA DAQUI PRA BAIXO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
-		String sql = "INSERT INTO artigo (titulo_do_artigo, titulo_pub, titulo_do_livro, pagina_inicial, pagina_final, capitulo, editora, ano_de_publicacao, titulo_original, autores_do_artigo, editores_do_artigo, IdLocPub)" +
-					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)";
+		String sql = "INSERT INTO artigo_de_livro (titulo_do_artigo, titulo_pub, titulo_do_livro, pagina_inicial, pagina_final, capitulo, editora, ano_de_publicacao, titulo_original, autores_do_artigo, editores_do_artigo, IdLocPub)" +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try{
 			PreparedStatement stmt = this.conn.prepareStatement(sql);
 			//arrumar aqui
             stmt.setString(1, tituloDoArtigo);
 			stmt.setString(2, tituloPub);            
-			stmt.setString(2, tipo);
-			stmt.setString(3, editora);
-			stmt.setInt(4, edicao);
-			stmt.setInt(5, anoPublicacao);
-			stmt.setString(6, autoresEditores);
-			stmt.setString(7, tituloOriginal);
-			stmt.setInt(8, nPaginas);
-			stmt.setInt(9, idLocPub);
+			stmt.setString(3, tituloDoLivro);
+			stmt.setInt(4, paginaInicial);
+			stmt.setInt(5, paginaFinal);
+			stmt.setInt(6, capitulo);
+			stmt.setString(7, editora);
+			stmt.setInt(8, anoPublicacao);
+			stmt.setString(9, tituloOriginal);
+			stmt.setString(10, autoresArtigo);
+			stmt.setString(11, editoresArtigo);
+			stmt.setInt(12, idLocPub);
 			
 			stmt.execute();
 			stmt.close();
@@ -91,11 +93,11 @@ public class BdArtigoDeLivro {
 		}
 	}
 	
-	// SELECT ARTIGOS
+	// SELECT ARTIGOS DE LIVRO
 	public static List<livro> listarARTIGOS() throws SQLException {
-		System.out.println("LISTA DE ARTIGOS\n");
+		System.out.println("LISTA DE ARTIGOS DE LIVRO\n");
 		
-		String sql = "SELECT * FROM livro;";
+		String sql = "SELECT * FROM artigo_de_livro;";
 		
 		List<livro> lista = new ArrayList<>();
 		
@@ -106,18 +108,20 @@ public class BdArtigoDeLivro {
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				livro l = new livro();
+				artigoLivro a = new artigoDeLivro();
 				
-				l.setTituloDoLivro(rs.getString("titulo_do_livro"));
-				l.setTipo(rs.getString("tipo"));
-				l.setEditora(rs.getString("editora"));
-				l.setEdicao(rs.getInt("editora"));
-				l.setAnoPublicacao(rs.getInt("ano_publicacao"));
-				l.setAutoresEditores(rs.getString("autores_editores"));
-				l.setTituloOriginal(rs.getString("titulo_original"));
-				l.setnPaginas(rs.getInt("n_pags"));
-				l.setIdLocPub(rs.getInt("IdLocPub"));
-				l.setTituloPub(rs.getInt("titulo_pub"));
+				a.setTituloDoArtigo((rs.getString("titulo_do_artigo")));
+				a.setTituloDoLivro(rs.getString("titulo_do_livro"));
+				a.setPaginaInicial(rs.getInt("pagina_inicial"));
+				a.setPaginaFinal(rs.getInt("pagina_final"));
+				a.setCapitulo(rs.getInt("capitulo"));
+				a.setEditora(rs.getString("editora"));
+				a.setAnoPublicacao(rs.getInt("ano_de_publicacao"));
+				a.setTituloOriginal(rs.getString("titulo_original"));
+				a.setAutoresArtigo(rs.getString("autores_do_artigo"));
+				a.setEditoresArtigo(rs.getString("editores_do_artigo"));
+				a.setIdLocPub(rs.getInt("IdLocPub"));
+				a.setTituloPub(rs.getInt("titulo_pub"));
 								
 				lista.add(l);
 				
@@ -130,14 +134,16 @@ public class BdArtigoDeLivro {
 		
 		// LISTAR OS OBJETOS DO LIST<LIST>
 		while(lista.next()){// LISTAR OS REGISTROS DE LIVRO
-			System.out.println("Título do livro: " + next.getTituloDoLivro());
-			System.out.println("Tipo: " + next.getTipo());
+			System.out.println("Título do Artigo: " + next.getTituloArtigo());
+			System.out.println("Título do Livro: " + next.getTituloLivro());
+			System.out.println("Página inicial: " + next.getPaginaInicial());			
+			System.out.println("Página Final: " + next.getPaginaFinal());	
+			System.out.println("capítulo: " + next.getCapitulo());			
 			System.out.println("Editora: " + next.getEditora());
-			System.out.println("Edição: " + next.getEdicao());
-			System.out.println("Ano de Publicação: " + next.getAnoPublicacao());
-			System.out.println("Autores/Editores: " + next.getAutoresEditores());
+			System.out.println("Ano de publicação: " + next.getAnoPublicacao());
+			System.out.println("Autores: " + next.getAutoresArtigo());
+			System.out.println("Editores: " + next.getEditoresArtigo());			
 			System.out.println("Título original: " + next.getTituloOriginal());
-			System.out.println("Número de páginas: " + next.getnPags());
 			System.out.println("Id Local de publicação: " + next.getIdLocPub());
 			System.out.println("Título de publicação: " + next.getTituloPub() + "\n \n");
 
@@ -154,10 +160,10 @@ public class BdArtigoDeLivro {
 		Scanner key = new Scanner(System.in);
 		System.out.println("REMOCAO DE ARTIGOS\n");
 		
-		System.out.println("Digite o Titulo do Livro\n >");
+		System.out.println("Digite o Titulo do Artigo\n >");
 		String remocaotituloDoLivro = key.nextLine();
 		
-		String sql = "DELETE FROM livro WHERE titulo_do_livro = " + remocaotituloDoLivro + ";";
+		String sql = "DELETE FROM artigo_de_livro WHERE titulo_do_artigo = " + remocaotituloDoLivro + ";";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		

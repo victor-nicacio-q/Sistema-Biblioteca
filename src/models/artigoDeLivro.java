@@ -14,6 +14,7 @@ public class artigoDeLivro {
 	private String editoresArtigo;
 	private int idLocPub;
 	private String tituloPub;
+	
 	public String getTituloArtigo() {
 		return tituloArtigo;
 	}
