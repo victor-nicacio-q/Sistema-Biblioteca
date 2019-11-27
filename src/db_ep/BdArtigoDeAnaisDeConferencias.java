@@ -68,7 +68,7 @@ public class BdArtigoDeAnaisDeConferencias {
 		key.close();
 		// FALTA DAQUI PRA BAIXO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-		String sql = "INSERT INTO artigo_de_periodico (titulo_do_artigo, titulo_pub, titulo_do_periodico, pagina_inicial, pagina_final, numero_do_volume, editora, ano_de_publicacao, autores_do_artigo, editores_do_artigo, IdLocPub)"
+		String sql = "INSERT INTO artigo_de_periodico (titulo_do_artigo, titulo_do_livro, titulo_do_congresso, editora, autores, ano_de_publicacao, mes, volume, numero, pagina_inicial, pagina_final, idLocPub, tituloPub)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
@@ -79,16 +79,14 @@ public class BdArtigoDeAnaisDeConferencias {
             stmt.setString(3, tituloDoCongresso);
             stmt.setString(4, editora);
             stmt.setString(5, autores);
-			stmt.setString(2, tituloPub);
-			stmt.setString(3, tituloDoPeriodico);
-			stmt.setInt(4, paginaInicial);
-			stmt.setInt(5, paginaFinal);
-			stmt.setInt(6, volume);
-			stmt.setString(7, editora);
-			stmt.setInt(8, anoPublicacao);
-			stmt.setString(9, autoresArtigo);
-			stmt.setString(10, editoresArtigo);
-			stmt.setInt(11, idLocPub);
+            stmt.setInt(6, anoPublicacao);
+            stmt.setInt(7, mesPublicacao);
+            stmt.setInt(8, volume);
+            stmt.setInt(9, numero);
+            stmt.setInt(10, paginaInicial);
+            stmt.setInt(11, paginaFinal);
+            stmt.setInt(12, idLocPub);
+			stmt.setString(13, tituloPub);            
 
 			stmt.execute();
 			stmt.close();
