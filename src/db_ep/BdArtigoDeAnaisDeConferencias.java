@@ -30,7 +30,7 @@ public class BdArtigoDeAnaisDeConferencias {
 		String tituloDoArtigo = key.nextLine();
 
 		System.out.println("Digite o Titulo do Livro\n >");
-        String tituloDoPeriodico = key.nextLine();
+        String tituloDoLivro = key.nextLine();
         
 		System.out.println("Digite o Titulo do Congresso\n >");
 		String tituloDoCongresso = key.nextLine();
@@ -74,7 +74,11 @@ public class BdArtigoDeAnaisDeConferencias {
 		try {
 			PreparedStatement stmt = this.conn.prepareStatement(sql);
 			// arrumar aqui
-			stmt.setString(1, tituloDoArtigo);
+            stmt.setString(1, tituloDoArtigo);
+            stmt.setString(2, tituloDoLivro);
+            stmt.setString(3, tituloDoCongresso);
+            stmt.setString(4, editora);
+            stmt.setString(5, autores);
 			stmt.setString(2, tituloPub);
 			stmt.setString(3, tituloDoPeriodico);
 			stmt.setInt(4, paginaInicial);
@@ -111,15 +115,16 @@ public class BdArtigoDeAnaisDeConferencias {
 			while (rs.next()) {
 				artigoLivro a = new artigoDeLivro();
 				a.setTituloArtigo((rs.getString("titulo_do_artigo")));
-				a.setTituloPeriodico(rs.getString("titulo_do_periodico"));
+                a.setTituloLivro(rs.getString("titulo_do_livro"));
+				a.setTituloCongresso(rs.getString("titulo_do_congresso"));                
 				a.setPaginaInicial(rs.getInt("pagina_inicial"));
 				a.setPaginaFinal(rs.getInt("pagina_final"));
-				a.setnVolume(rs.getInt("numero_do_volume"));
+                a.setVolume(rs.getInt("numero_do_volume"));
+				a.setNumero(rs.getInt("numero"));                
 				a.setEditora(rs.getString("editora"));
 				a.setAno(rs.getInt("ano"));
 				a.setMes(rs.getInt("mes"));
 				a.setAutores(rs.getString("autores_do_artigo"));
-				a.setEditores(rs.getString("editores_do_artigo"));
 				a.setIdLocPub(rs.getInt("IdLocPub"));
 				a.setTituloPub(rs.getInt("titulo_pub"));
 
@@ -135,15 +140,16 @@ public class BdArtigoDeAnaisDeConferencias {
 		// LISTAR OS OBJETOS DO LIST<LIST>
 		while (lista.next()) {// LISTAR OS REGISTROS DE LIVRO
 			System.out.println("Título do Artigo: " + next.getTituloArtigo());
-			System.out.println("Título do Periodico: " + next.getTituloPeriodico());
+            System.out.println("Título do Livro: " + next.getTituloPeriodico());
+            System.out.println("Título do Congresso: " + next.getTituloCongresso());
 			System.out.println("Página inicial: " + next.getPaginaInicial());
 			System.out.println("Página Final: " + next.getPaginaFinal());
-			System.out.println("Numero do volume: " + next.getnVol());
+            System.out.println("Numero do volume: " + next.getVolume());
+            System.out.println("Numero: " + next.getNumero());
 			System.out.println("Editora: " + next.getEditora());
 			System.out.println("Mes : " + next.getMes());
 			System.out.println("Ano : " + next.getAno());
 			System.out.println("Autores: " + next.getAutores());
-			System.out.println("Editores: " + next.getEditores());
 			System.out.println("Id Local de publicação: " + next.getIdLocPub());
 			System.out.println("Título de publicação: " + next.getTituloPub() + "\n \n");
 
@@ -158,12 +164,12 @@ public class BdArtigoDeAnaisDeConferencias {
 	// DELETE
 	public void removeLivro() throws SQLException {
 		Scanner key = new Scanner(System.in);
-		System.out.println("REMOCAO DE ARTIGOS\n");
+		System.out.println("REMOCAO DE ARTIGOS DE ANAIS DE CONFERENCIA\n");
 
 		System.out.println("Digite o Titulo do Artigo\n >");
 		String remocaotituloDoLivro = key.nextLine();
 
-		String sql = "DELETE FROM artigo_de_periodico WHERE titulo_do_artigo = " + remocaotituloDoLivro + ";";
+		String sql = "DELETE FROM artigo_de_anais_de_conferencia WHERE artigo_de_anais_de_conferencia = " + remocaotituloDoLivro + ";";
 
 		PreparedStatement stmt = conn.prepareStatement(sql);
 
