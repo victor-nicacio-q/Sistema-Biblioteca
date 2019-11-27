@@ -107,17 +107,16 @@ public class BdArtigoDeLivro {
 			
 			while(rs.next()) {
 				artigoLivro a = new artigoDeLivro();
-                //ARRUMAR AQUI >>>>>>>>>>>>>>>>>>>>>>
 				a.setTituloArtigo((rs.getString("titulo_do_artigo")));
 				a.setTituloPeriodico(rs.getString("titulo_do_periodico"));
 				a.setPaginaInicial(rs.getInt("pagina_inicial"));
 				a.setPaginaFinal(rs.getInt("pagina_final"));
-				a.setCapitulo(rs.getInt("capitulo"));
+				a.setnVolume(rs.getInt("numero_do_volume"));
 				a.setEditora(rs.getString("editora"));
-				a.setAnoPublicacao(rs.getInt("ano_de_publicacao"));
-				a.setTituloOriginal(rs.getString("titulo_original"));
-				a.setAutoresArtigo(rs.getString("autores_do_artigo"));
-				a.setEditoresArtigo(rs.getString("editores_do_artigo"));
+				a.setAno(rs.getInt("ano"));
+				a.setMes(rs.getInt("mes"));
+				a.setAutores(rs.getString("autores_do_artigo"));
+				a.setEditores(rs.getString("editores_do_artigo"));
 				a.setIdLocPub(rs.getInt("IdLocPub"));
 				a.setTituloPub(rs.getInt("titulo_pub"));
 								
@@ -154,6 +153,7 @@ public class BdArtigoDeLivro {
 	}
 	
 	//DELETE
+                //ARRUMAR AQUI >>>>>>>>>>>>>>>>>>>>>>
 	public void removeLivro() throws SQLException{
 		Scanner key = new Scanner(System.in);
 		System.out.println("REMOCAO DE ARTIGOS\n");
