@@ -8,29 +8,32 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-import models.artigoDePeriodico;
+import models.artigoDeAnaisDeConferencias;
 
 // INTO TO 
-public class BdArtigoDeLivro {
+public class BdArtigoDeAnaisDeConferencias {
 	static connBd bd = new connBd();
 	static Connection conn;
 
-	public BdArtigoDeLivro() throws SQLException {
+	public BdArtigoDeAnaisDeConferencias() throws SQLException {
 		this.conn = connBd.getConnection();
 	}
 
 	public void postLivro() {
-		System.out.println("INSERCAO DE ARTIGOS DE PERIODICO\n\n");
+		System.out.println("INSERCAO DE ARTIGOS DE ANAIS DE CONFERENCIA\n\n");
 
 		Scanner key = new Scanner(System.in);
 
-		System.out.println("Inserção de Artigo\n >");
+		System.out.println("Inserção de Artigo de Anais de Conferencia\n >");
 
 		System.out.println("Digite o Titulo do Artigo\n >");
 		String tituloDoArtigo = key.nextLine();
 
-		System.out.println("Digite o Titulo do Periodico\n >");
-		String tituloDoPeriodico = key.nextLine();
+		System.out.println("Digite o Titulo do Livro\n >");
+        String tituloDoPeriodico = key.nextLine();
+        
+		System.out.println("Digite o Titulo do Congresso\n >");
+		String tituloDoCongresso = key.nextLine();
 
 		System.out.println("Digite a pagina inicial \n >");
 		int paginaInicial = key.nextInt();
@@ -39,7 +42,10 @@ public class BdArtigoDeLivro {
 		int paginaFinal = key.nextInt();
 
 		System.out.println("Digite o numero do volume\n >");
-		int volume = key.nextInt();
+        int volume = key.nextInt();
+        
+        System.out.println("Digite o numero \n >");
+		int numero = key.nextInt();
 
 		System.out.println("Digite a editora\n >");
 		String editora = key.nextLine();
@@ -52,9 +58,6 @@ public class BdArtigoDeLivro {
 
 		System.out.println("Digite o nome dos autores do Artigo\n >");
 		String autoresArtigo = key.nextLine();
-
-		System.out.println("Digite o nome dos editores do Artigo\n >");
-		String editoresArtigo = key.nextLine();
 
 		System.out.println("Digite o ID de Localização da Publicação\n >");
 		int idLocPub = key.nextInt();

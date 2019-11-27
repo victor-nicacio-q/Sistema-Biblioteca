@@ -1,6 +1,6 @@
 package models;
 
-public class artigosDeAnaisDeConferencias {
+public class artigoDeAnaisDeConferencias {
 	private String tituloArtigo;
 	private String tituloLivro;
 	private String tituloCongresso;
