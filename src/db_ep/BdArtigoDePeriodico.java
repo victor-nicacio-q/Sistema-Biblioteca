@@ -132,15 +132,15 @@ public class BdArtigoDeLivro {
 		// LISTAR OS OBJETOS DO LIST<LIST>
 		while(lista.next()){// LISTAR OS REGISTROS DE LIVRO
 			System.out.println("Título do Artigo: " + next.getTituloArtigo());
-			System.out.println("Título do Livro: " + next.getTituloLivro());
+			System.out.println("Título do Periodico: " + next.getTituloPeriodico());
 			System.out.println("Página inicial: " + next.getPaginaInicial());			
 			System.out.println("Página Final: " + next.getPaginaFinal());	
-			System.out.println("capítulo: " + next.getCapitulo());			
+			System.out.println("Numero do volume: " + next.getnVol());			
 			System.out.println("Editora: " + next.getEditora());
-			System.out.println("Ano de publicação: " + next.getAnoPublicacao());
-			System.out.println("Autores: " + next.getAutoresArtigo());
-			System.out.println("Editores: " + next.getEditoresArtigo());			
-			System.out.println("Título original: " + next.getTituloOriginal());
+			System.out.println("Mes : " + next.getMes());			
+			System.out.println("Ano : " + next.getAno());
+			System.out.println("Autores: " + next.getAutores());
+			System.out.println("Editores: " + next.getEditores());			
 			System.out.println("Id Local de publicação: " + next.getIdLocPub());
 			System.out.println("Título de publicação: " + next.getTituloPub() + "\n \n");
 
