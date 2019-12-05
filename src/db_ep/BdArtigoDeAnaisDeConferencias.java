@@ -66,14 +66,11 @@ public class BdArtigoDeAnaisDeConferencias {
 		String tituloPub = key.nextLine();
 
 		key.close();
-		// FALTA DAQUI PRA BAIXO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 		String sql = "INSERT INTO artigo_de_periodico (titulo_do_artigo, titulo_do_livro, titulo_do_congresso, editora, autores, ano_de_publicacao, mes, volume, numero, pagina_inicial, pagina_final, idLocPub, tituloPub)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement stmt = this.conn.prepareStatement(sql);
-			// arrumar aqui
             stmt.setString(1, tituloDoArtigo);
             stmt.setString(2, tituloDoLivro);
             stmt.setString(3, tituloDoCongresso);
@@ -98,9 +95,9 @@ public class BdArtigoDeAnaisDeConferencias {
 
 	// SELECT ARTIGOS DE LIVRO
 	public static List<livro> listarARTIGOS() throws SQLException {
-		System.out.println("LISTA DE ARTIGOS DE PERIODICO\n");
+		System.out.println("LISTA DE ARTIGOS DE ANAL DE CONFERENCIA\n");
 
-		String sql = "SELECT * FROM artigo_de_periodico;";
+		String sql = "SELECT * FROM artigo_de_anal_de_conferencia;";
 
 		List<livro> lista = new ArrayList<>();
 
@@ -115,14 +112,14 @@ public class BdArtigoDeAnaisDeConferencias {
 				a.setTituloArtigo((rs.getString("titulo_do_artigo")));
                 a.setTituloLivro(rs.getString("titulo_do_livro"));
 				a.setTituloCongresso(rs.getString("titulo_do_congresso"));                
+				a.setEditora(rs.getString("editora"));
+				a.setAutores(rs.getString("autores"));
+				a.setAno(rs.getInt("ano_de_publicacao"));
+                a.setMes(rs.getInt("mes"));
+                a.setVolume(rs.getInt("volume"));                
+				a.setNumero(rs.getInt("numero"));                
 				a.setPaginaInicial(rs.getInt("pagina_inicial"));
 				a.setPaginaFinal(rs.getInt("pagina_final"));
-                a.setVolume(rs.getInt("numero_do_volume"));
-				a.setNumero(rs.getInt("numero"));                
-				a.setEditora(rs.getString("editora"));
-				a.setAno(rs.getInt("ano"));
-				a.setMes(rs.getInt("mes"));
-				a.setAutores(rs.getString("autores_do_artigo"));
 				a.setIdLocPub(rs.getInt("IdLocPub"));
 				a.setTituloPub(rs.getInt("titulo_pub"));
 
