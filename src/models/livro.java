@@ -11,7 +11,7 @@ public class livro {
 	private String tituloOriginal;
 	private int nPaginas;
 	private int idLocPub;
-	private int tituloPub;
+	private String tituloPub;
 	
 	public String getTituloDoLivro() {
 		return tituloDoLivro;
