@@ -159,7 +159,7 @@ public class BdArtigoDeLivro {
 	}
 
 	// UPDATE
-	public void alterarLivro() {
+	public void alterarArtigoDePeriodico() {
 		Scanner key = new Scanner(System.in);
 		String tituloDoArtigo;
 		String tituloPub;
@@ -255,7 +255,7 @@ public class BdArtigoDeLivro {
 		
 		sql = sql + " WHERE titulo_do_artigo = " + a.getTituloArtigo()
 					+ "AND titulo_pub = " + a.getTituloPub()
-					+ "AND titulo_do_periodico = " + a.getTituloPeriodico() + ";";
+					+ "AND titulo_do_periodico = " + a.getTituloPeriodico() + "; ";
 					
 		try {
 			conn = bd.getConnection();
@@ -320,7 +320,7 @@ public class BdArtigoDeLivro {
 			return a;
 		} 
 		catch (Exception e) {
-			return null;
+			throw new RuntimeException(e);
 		}
 	}
 	
