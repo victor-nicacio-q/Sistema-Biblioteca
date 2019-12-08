@@ -67,7 +67,7 @@ public class BdArtigoDeAnaisDeConferencias {
 		String tituloPub = key.nextLine();
 
 		key.close();
-		String sql = "INSERT INTO artigo_de_periodico (titulo_do_artigo, titulo_do_livro, titulo_do_congresso, editora, autores, ano_de_publicacao, mes, volume, numero, pagina_inicial, pagina_final, idLocPub, tituloPub)"
+		String sql = "INSERT INTO artigos_de_anais_de_conferencia (titulo_do_artigo, titulo_do_livro, titulo_do_congresso, editora, autores, ano_de_publicacao, mes, volume, numero, pagina_inicial, pagina_final, idLocPub, tituloPub)"
 				+ "VALUES (" + tituloDoArtigo + ", " 
 				+ tituloDoLivro + ", " 
 				+ tituloDoCongresso + ", " 

@@ -13,50 +13,44 @@ import models.livro;
 
 
 // INTO TO 
-public class BdLivro {
+public class BdLivros {
 	static connBd bd = new connBd();
 	static Connection conn;
 	
-	public BdLivro() throws SQLException{
+	public BdLivros() throws SQLException{
 		this.conn = connBd.getConnection();
 	}
 	
 	public void postLivro() {		
-		System.out.println("INSERCAO DE LIVROS\n\n");
+		System.out.println("INSERCAO DE LIVRO\n\n");
 		
 		Scanner key = new Scanner(System.in);
-		 
-		System.out.println("Inserção de Livro\n >");
 		
-		System.out.println("Digite o Titulo do Livro\n >");
-		String tituloDoLivro = key.nextLine();
+		System.out.println("Digite o titulo do livro\n >");
+		String tituloLivro = key.nextLine();
 		
-		System.out.println("Digite o Tipo do Livro\n >");
-		String tipo = key.nextLine();
+		System.out.println("Digite o numero da edicao do livro\n >");
+		int numeroEdicao = key.nextInt();
 		
-		System.out.println("Digite a Editora do Livro\n >");
-		String editora = key.nextLine();
+		System.out.println("Digite a data de publicacao do livro\n >");
+		int dataPublicacao = key.nextInt();
 		
-		System.out.println("Digite a Edicao do Livro\n >");
-		int edicao = key.nextInt();
-		
-		System.out.println("Digite o Ano de Publicacao do Livro\n >");
-		int anoPublicacao = key.nextInt();
-		
-		System.out.println("Digite os Autores/Editores do Livro\n >");
-		String autoresEditores = key.nextLine();
-		
-		System.out.println("Digite o Titulo Original do Livro\n >");
+		System.out.println("Digite o titulo original do livro\n >");
 		String tituloOriginal = key.nextLine();
 		
-		System.out.println("Digite o Numero de Paginas do Livro\n >");
+		System.out.println("Digite o numero de paginas do livro\n >");
 		int nPaginas = key.nextInt();
 		
-		System.out.println("Digite o ID de Localização da Publicação\n >");
-		int idLocPub = key.nextInt();
+		System.out.println("Digite o nome da editora\n >");
+		String editora = key.nextLine();
 		
-		System.out.println("Digite o Titulo da Publicação\n >");
-		int tituloPub = key.nextLine();
+		System.out.println("Digite o tema da publicacao\n >");
+		String tema = key.nextLine();
+		
+		System.out.println("Digite o meio em que esta publicacao esta disponivel (F, D ou A - Fisico, Digital ou Ambos\n >");
+		String meio = key.nextLine();
+		
+		System.out.println("Digite o descritivo da l")
 		
 		key.close();
 		

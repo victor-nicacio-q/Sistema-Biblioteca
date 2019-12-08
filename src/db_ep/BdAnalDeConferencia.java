@@ -21,7 +21,7 @@ public class BdArtigoDeAnaisDeConferencias {
 	}
 
 	public void postLivro() {
-		System.out.println("INSERCAO DE NAIS DE CONFERENCIA\n\n");
+		System.out.println("INSERCAO DE ANAIS DE CONFERENCIA\n\n");
 
 		Scanner key = new Scanner(System.in);
 
