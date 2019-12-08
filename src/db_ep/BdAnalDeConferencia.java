@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.*;
-import models.artigoDeAnaisDeConferencias;
+import models.*;
 
 // INTO TO 
 public class BdArtigoDeAnaisDeConferencias {
@@ -93,9 +93,9 @@ public class BdArtigoDeAnaisDeConferencias {
 
 			while (rs.next()) {
 				analDeConferencia a = new analDeConferencia();
-				a.setTituloCongresso((rs.getTituloCongresso("titulo_do_congresso"));
+				a.setTituloCongresso(rs.getTituloCongresso("titulo_do_congresso"));
 				a.setEditora(rs.getString("editora"));
-				a.setAno(rs.getAno("ano_de_publicacao");
+				a.setAno(rs.getAno("ano_de_publicacao"));
 				a.setMes(rs.getMes("mes"));
 				a.setVolume(rs.getVolume("volume"));                
 				a.setNumero(rs.getNumero("numero"));                
@@ -192,12 +192,12 @@ public class BdArtigoDeAnaisDeConferencias {
 					case 6: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
 							controlaVirgulas(contaVirgulas, sql);
 							break;
-					case default: sql = sql + " SET tituloPub = " + atributo;
+					default: sql = sql + " SET tituloPub = " + atributo;
 				}
 			}
 		}
 		
-		sql = sql + " WHERE titulo_do_congresso = " + a.getTituloCongresso()
+		sql = sql + " WHERE titulo_do_congresso = " + a.getTituloCongresso() + ";";
 					
 		try {
 			conn = bd.getConnection();
@@ -231,7 +231,7 @@ public class BdArtigoDeAnaisDeConferencias {
 	//SELECT TUPLA ESPECIFICA PELA CHAVE
 	public static analDeConferencia selectAnalDeConferenciaChave(String tituloDoCongresso){
 		String sql = "SELECT * FROM anal_de_conferencia"
-					+ "WHERE titulo_do_congresso = tituloDoCongresso"
+					+ "WHERE titulo_do_congresso = tituloDoCongresso" + ";";
 
 		analDeConferencia a = new analDeConferencia();
 
@@ -241,9 +241,9 @@ public class BdArtigoDeAnaisDeConferencias {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 
-			a.setTituloCongresso((rs.getTituloCongresso("titulo_do_congresso"));
+			a.setTituloCongresso(rs.getTituloCongresso("titulo_do_congresso"));
 			a.setEditora(rs.getString("editora"));
-			a.setAno(rs.getAno("ano_de_publicacao");
+			a.setAno(rs.getAno("ano_de_publicacao"));
 			a.setMes(rs.getMes("mes"));
 			a.setVolume(rs.getVolume("volume"));                
 			a.setNumero(rs.getNumero("numero"));                
