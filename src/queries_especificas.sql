@@ -18,15 +18,16 @@ SELECT titulo_do_artigo FROM artigos_de_anais_de_conferencia
 	
 -- 3.5	Obter uma listagem cronológica de todos os ARTIGOS que constituem os números de um PERIÓDICO,
 --		dados um ano de inicio e um ano de fim.
-SELECT titulo_do_artigo, numero_do_volume, ano_de_publicacao, mes_de_publicacao FROM artigos_de_periodicos
-	WHERE ano_de_publicacao BETWEEN anoInicio AND anoFim
-	ORDER BY ano_de_publicacao, mes_de_publicacao;
+SELECT titulo_do_artigo, titulo_do_periodico, ano_de_publicacao, mes_de_publicacao FROM artigos_de_periodicos
+	WHERE titulo_do_periodico = tituloDoPeriodico
+	AND ano_de_publicacao BETWEEN anoInicio AND anoFim
+	ORDER BY ano_de_publicacao, mes_de_publicacao, titulo_do_artigo;
 	
 -- 3.6	Obter uma listagem cronológica das publicações de um dado autor.
-SELECT tituloPub FROM Publicacoes
+SELECT tituloPub, ano_de_publicacao, mes_de_publicacao FROM Publicacoes
 	NATURAL JOIN Autores_Publicacoes
-	WHERE nome_autor = nomeAutor
-	ORDER BY ano_de_publicacao, mes_de_publicacao;
+	WHERE nome_autor = nomeDoAutor
+	ORDER BY ano_de_publicacao, mes_de_publicacao, tituloPub;
 	
 -- 3.7	Obter uma listagem, em ordem alfabética do autor, das publicações referentes a um determinado tema.
 SELECT tituloPub, nomeAutor FROM Publicacoes
@@ -37,7 +38,7 @@ SELECT tituloPub, nomeAutor FROM Publicacoes
 -- 3.8	Obter o nome da pessoa a quem se emprestou uma determinada publicação.
 SELECT nome_locatario FROM Emprestimos
 	WHERE tituloPub = titulo
-	GROUP BY nome_locatario;
+	AND data_devolucao = NULL;
 	
 -- 3.9	Obter a localização de uma determinada publicação de interesse.
 SELECT * FROM Localizacao
