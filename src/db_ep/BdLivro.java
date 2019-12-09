@@ -89,7 +89,7 @@ public class BdLivros {
 	}
 	
 	// SELECT LIVROS
-	public static List<livro> listarLivros() throws SQLException {
+	public static void listarLivros() throws SQLException {
 		System.out.println("LISTA DE LIVROS\n");
 		
 		String sql = "SELECT * FROM livro;";

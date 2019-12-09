@@ -108,7 +108,7 @@ public class BdArtigoDeAnaisDeConferencias {
 	}
 
 	// SELECT ARTIGOS DE LIVRO
-	public static List<livro> listarARTIGOS() throws SQLException {
+	public static void listarArtigosDeAnaisDeConferencia() throws SQLException {
 		System.out.println("LISTA DE ARTIGOS DE ANAL DE CONFERENCIA\n");
 
 		String sql = "SELECT * FROM artigo_de_anal_de_conferencia;";

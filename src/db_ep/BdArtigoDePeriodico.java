@@ -103,7 +103,7 @@ public class BdArtigoDeLivro {
 	}
 
 	// SELECT ARTIGOS DE LIVRO
-	public static List<livro> listarARTIGOS() throws SQLException {
+	public static void listarArtigosDePeriodicos() throws SQLException {
 		System.out.println("LISTA DE ARTIGOS DE PERIODICO\n");
 
 		String sql = "SELECT * FROM artigo_de_periodico;";
@@ -216,40 +216,30 @@ public class BdArtigoDeLivro {
 				
 				switch(i){
 					case 0: sql = sql + " SET titulo_do_artigo = " + atributo;
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 1: sql = sql + " SET titulo_pub = " + atributo;
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 2: sql = sql + " SET titulo_do_periodico = " + atributo;
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 3: sql = sql + " SET pagina_inicial = " + Integer.parseInt(atributo);
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 4: sql = sql + " SET pagina_final = " + Integer.parseInt(atributo);
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 5: sql = sql + " SET numero_do_volume = " + Integer.parseInt(atributo);
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 6: sql = sql + " SET editora = " + atributo;
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 7: sql = sql + " SET ano_de_publicacao = " + Integer.parseInt(atributo);
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 8: sql = sql + " SET mes_de_publicacao = " + Integer.parseInt(atributo);
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 9: sql = sql + " SET autores_do_artigo = " + atributo;
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case 10: sql = sql + " SET editores_do_artigo = " + atributo;
-							controlaVirgulas(contaVirgulas, sql);
 							break;
 					case default: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
 				}
+				contaVirgulas = controlaVirgulas(contaVirgulas, sql);
 			}
 		}
 		
@@ -342,9 +332,11 @@ public class BdArtigoDeLivro {
 	}
 	
 	//CONTROLA A QUANTIDADE DE VIRGULAS DOS ARGUMENTOS DO UPDATE
-	public static void controlaVirgulas(int contaVirgulas, String argumentos){
+	public static int controlaVirgulas(int contaVirgulas, String argumentos){
 		contaVirgulas--;
 		if (contaVirgulas > 0)
 			argumentos = argumentos + ",";
+		
+		return contaVirgulas;
 	}
 }

@@ -78,7 +78,7 @@ public class BdArtigoDeAnaisDeConferencias {
 	}
 	
 	// SELECT ANAIS DE CONFERENCIA
-	public static List<analDeConferencia> listaAnaisDeConferencia() throws SQLException {
+	public static void listaAnaisDeConferencia() throws SQLException {
 		System.out.println("LISTA DE ANAIS DE CONFERENCIA\n");
 
 		String sql = "SELECT * FROM anal_de_conferencia;";
