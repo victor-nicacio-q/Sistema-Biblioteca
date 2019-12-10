@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.*;
-import models.artigoDeLivro;
+import models.*;
 
 
 // INTO TO 
@@ -21,7 +21,7 @@ public class BdArtigoDeLivro {
 		this.conn = connBd.getConnection();
 	}
 	
-	public void postLivro() {		
+	public static void postArtigoDeLivro() {		
 		System.out.println("INSERCAO DE ARTIGO DE LIVRO\n\n");
 		
 		Scanner key = new Scanner(System.in);
@@ -66,7 +66,7 @@ public class BdArtigoDeLivro {
 		
         key.close();
 		
-		String sql = "INSERT INTO artigo_de_livro (titulo_do_artigo, titulo_pub, titulo_do_livro, pagina_inicial, pagina_final, capitulo, editora, ano_de_publicacao, titulo_original, autores_do_artigo, editores_do_artigo, IdLocPub)" +
+		String sql = "INSERT INTO artigo_de_livro (titulo_do_artigo, titulo_pub, titulo_do_livro, pagina_inicial, pagina_final, capitulo, editora, ano_de_publicacao, titulo_original, autores_do_artigo, editores_do_artigo, IdLocPub)"
 					+ "VALUES (" + tituloDoArtigo + ", " 
 					+ tituloPub + ", " 
 					+ tituloDoLivro + ", " 
@@ -104,12 +104,13 @@ public class BdArtigoDeLivro {
 	}
 	
 	// SELECT ARTIGOS DE LIVRO
-	public static List<livro> listarARTIGOS() throws SQLException {
+	public static void listarArtigoDeLivro() throws SQLException {
 		System.out.println("LISTA DE ARTIGOS DE LIVRO\n");
 		
 		String sql = "SELECT * FROM artigo_de_livro;";
 		
-		List<livro> lista = new ArrayList<>();
+		List<artigoDeLivro> lista = new ArrayList<>();
+		artigoDeLivro a;
 		
 		try {
 			conn = bd.getConnection();
@@ -118,7 +119,7 @@ public class BdArtigoDeLivro {
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				artigoLivro a = new artigoDeLivro();
+				a = new artigoDeLivro();
 				
 				a.setTituloDoArtigo((rs.getString("titulo_do_artigo")));
 				a.setTituloDoLivro(rs.getString("titulo_do_livro"));
@@ -131,7 +132,7 @@ public class BdArtigoDeLivro {
 				a.setAutoresArtigo(rs.getString("autores_do_artigo"));
 				a.setEditoresArtigo(rs.getString("editores_do_artigo"));
 				a.setIdLocPub(rs.getInt("IdLocPub"));
-				a.setTituloPub(rs.getInt("titulo_pub"));
+				a.setTituloPub(rs.getString("titulo_pub"));
 								
 				lista.add(l);
 				
@@ -142,26 +143,29 @@ public class BdArtigoDeLivro {
 			throw new RuntimeException(e);
 		}
 		
+		Iterator<artigoDeLivro> it = lista.iterator();
+		
 		// LISTAR OS OBJETOS DO LIST<LIST>
-		while(lista.next()){// LISTAR OS REGISTROS DE LIVRO
-			System.out.println("Título do Artigo: " + next.getTituloArtigo());
-			System.out.println("Título do Livro: " + next.getTituloLivro());
-			System.out.println("Página inicial: " + next.getPaginaInicial());			
-			System.out.println("Página Final: " + next.getPaginaFinal());	
-			System.out.println("capítulo: " + next.getCapitulo());			
-			System.out.println("Editora: " + next.getEditora());
-			System.out.println("Ano de publicação: " + next.getAnoPublicacao());
-			System.out.println("Autores: " + next.getAutoresArtigo());
-			System.out.println("Editores: " + next.getEditoresArtigo());			
-			System.out.println("Título original: " + next.getTituloOriginal());
-			System.out.println("Id Local de publicação: " + next.getIdLocPub());
-			System.out.println("Título de publicação: " + next.getTituloPub() + "\n \n");
+		while(it.hasNext()){
+			a = it.next();
+			System.out.println("Título do Artigo: " + a.getTituloArtigo());
+			System.out.println("Título do Livro: " + a.getTituloLivro());
+			System.out.println("Página inicial: " + a.getPaginaInicial());			
+			System.out.println("Página Final: " + a.getPaginaFinal());	
+			System.out.println("capítulo: " + a.getCapitulo());			
+			System.out.println("Editora: " + a.getEditora());
+			System.out.println("Ano de publicação: " + a.getAnoPublicacao());
+			System.out.println("Autores: " + a.getAutoresArtigo());
+			System.out.println("Editores: " + a.getEditoresArtigo());			
+			System.out.println("Título original: " + a.getTituloOriginal());
+			System.out.println("Id Local de publicação: " + a.getIdLocPub());
+			System.out.println("Título de publicação: " + a.getTituloPub() + "\n \n");
 
 		}
 	}
 
 	// UPDATE
-	public void alterarLivro() {
+	public static void alterarArtigoDeLivro() {
 		Scanner key = new Scanner(System.in);
 		String tituloDoArtigo;
 		String tituloPub;
@@ -207,8 +211,8 @@ public class BdArtigoDeLivro {
 		colunas = colunasEscolhidas.split(",[ ]*");
 		contaVirgulas = colunas.length;
 
-		for (String atributo : colunas)
-			opcoes[Integer.parseInt(atributo) - 1] = true;
+		for (String conteudo : colunas)
+			opcoes[Integer.parseInt(conteudo) - 1] = true;
 		
 		for (int i = 0; i < opcoes.length; i++){
 			if (opcoes[i] == true){
@@ -250,7 +254,7 @@ public class BdArtigoDeLivro {
 					case 10: sql = sql + " SET editores_do_artigo = " + atributo;
 							controlaVirgulas(contaVirgulas, sql);
 							break;
-					case default: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
+					default: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
 				}
 			}
 		}
@@ -272,7 +276,7 @@ public class BdArtigoDeLivro {
 	}
 	
 	//DELETE
-	public void removeLivro() throws SQLException{
+	public static void removeArtigoDeLivro() throws SQLException{
 		Scanner key = new Scanner(System.in);
 		System.out.println("REMOCAO DE ARTIGO DE LIVRO\n");
 		
@@ -304,15 +308,14 @@ public class BdArtigoDeLivro {
 			ResultSet rs = stmt.executeQuery();
 
 			a.setTituloArtigo((rs.getString("titulo_do_artigo")));
-			a.setTituloPeriodico(rs.getString("titulo_do_livro"));
+			a.setTituloLivro(rs.getString("titulo_do_livro"));
 			a.setPaginaInicial(rs.getInt("pagina_inicial"));
 			a.setPaginaFinal(rs.getInt("pagina_final"));
 			a.setnVolume(rs.getInt("capitulo"));
 			a.setEditora(rs.getString("editora"));
-			a.setAno(rs.getInt("ano"));
-			a.setMes(rs.getInt("titulo_original"));
-			a.setAutores(rs.getString("autores_do_artigo"));
-			a.setEditores(rs.getString("editores_do_artigo"));
+			a.setAnoPublicacao(rs.getInt("ano"));
+			a.setAutoresArtigo(rs.getString("autores_do_artigo"));
+			a.setEditoresArtigo(rs.getString("editores_do_artigo"));
 			a.setIdLocPub(rs.getInt("IdLocPub"));
 			a.setTituloPub(rs.getInt("titulo_pub"));
 

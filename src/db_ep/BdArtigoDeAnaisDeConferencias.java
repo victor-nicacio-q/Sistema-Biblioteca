@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.*;
-import models.artigoDeAnaisDeConferencias;
+import models.*;
 
 // INTO TO 
 public class BdArtigoDeAnaisDeConferencias {
@@ -20,7 +20,7 @@ public class BdArtigoDeAnaisDeConferencias {
 		this.conn = connBd.getConnection();
 	}
 
-	public void postLivro() {
+	public static void postArtigoDeAnalDeConferencia() {
 		System.out.println("INSERCAO DE ARTIGOS DE ANAIS DE CONFERENCIA\n\n");
 
 		Scanner key = new Scanner(System.in);
@@ -35,6 +35,12 @@ public class BdArtigoDeAnaisDeConferencias {
         
 		System.out.println("Digite o Titulo do Congresso\n >");
 		String tituloDoCongresso = key.nextLine();
+		
+		System.out.println("Digite a editora\n >");
+		String editora = key.nextLine();
+		
+		System.out.println("Digite o nome dos autores do Artigo\n >");
+		String autoresArtigo = key.nextLine();
 
 		System.out.println("Digite a pagina inicial \n >");
 		int paginaInicial = key.nextInt();
@@ -48,17 +54,11 @@ public class BdArtigoDeAnaisDeConferencias {
         System.out.println("Digite o numero \n >");
 		int numero = key.nextInt();
 
-		System.out.println("Digite a editora\n >");
-		String editora = key.nextLine();
-
-		System.out.println("Digite o ano de publicação\n >");
-		int anoPublicacao = key.nextInt();
-
 		System.out.println("Digite o mes de publicação\n >");
 		int mesPublicacao = key.nextInt();
 
-		System.out.println("Digite o nome dos autores do Artigo\n >");
-		String autoresArtigo = key.nextLine();
+		System.out.println("Digite o ano de publicação\n >");
+		int anoPublicacao = key.nextInt();
 
 		System.out.println("Digite o ID de Localização da Publicação\n >");
 		int idLocPub = key.nextInt();
@@ -72,14 +72,13 @@ public class BdArtigoDeAnaisDeConferencias {
 				+ tituloDoLivro + ", " 
 				+ tituloDoCongresso + ", " 
 				+ editora + ", " 
-				+ autores + ", "
+				+ autoresArtigo + ", "
 				+ anoPublicacao + ", " 
-				+ mes + ", "
+				+ mesPublicacao + ", "
 				+ volume + ", "
 				+ numero + ", "
 				+ paginaInicial + ", "
 				+ paginaFinal + ", "
-				+ editoresArtigo + ", "
 				+ idLocPub + ", "
 				+ tituloPub + "); ";
 
@@ -89,7 +88,7 @@ public class BdArtigoDeAnaisDeConferencias {
             stmt.setString(2, tituloDoLivro);
             stmt.setString(3, tituloDoCongresso);
             stmt.setString(4, editora);
-            stmt.setString(5, autores);
+            stmt.setString(5, autoresArtigo);
             stmt.setInt(6, anoPublicacao);
             stmt.setInt(7, mesPublicacao);
             stmt.setInt(8, volume);
@@ -113,7 +112,8 @@ public class BdArtigoDeAnaisDeConferencias {
 
 		String sql = "SELECT * FROM artigo_de_anal_de_conferencia;";
 
-		List<livro> lista = new ArrayList<>();
+		List<artigoDeAnaisDeConferencias> lista = new ArrayList<>();
+		artigoDeAnaisDeConferencias a;
 
 		try {
 			conn = bd.getConnection();
@@ -122,7 +122,7 @@ public class BdArtigoDeAnaisDeConferencias {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				artigoLivro a = new artigoDeLivro();
+				a = new artigoDeAnaisDeConferencias();
 				a.setTituloArtigo((rs.getString("titulo_do_artigo")));
                 a.setTituloLivro(rs.getString("titulo_do_livro"));
 				a.setTituloCongresso(rs.getString("titulo_do_congresso"));                
@@ -135,9 +135,9 @@ public class BdArtigoDeAnaisDeConferencias {
 				a.setPaginaInicial(rs.getInt("pagina_inicial"));
 				a.setPaginaFinal(rs.getInt("pagina_final"));
 				a.setIdLocPub(rs.getInt("IdLocPub"));
-				a.setTituloPub(rs.getInt("titulo_pub"));
+				a.setTituloPub(rs.getString("titulo_pub"));
 
-				lista.add(l);
+				lista.add(a);
 
 				rs.close();
 				stmt.close();
@@ -146,27 +146,28 @@ public class BdArtigoDeAnaisDeConferencias {
 			throw new RuntimeException(e);
 		}
 
-		// LISTAR OS OBJETOS DO LIST<LIST>
-		while (lista.next()) {// LISTAR OS REGISTROS DE LIVRO
-			System.out.println("Título do Artigo: " + next.getTituloArtigo());
-            System.out.println("Título do Livro: " + next.getTituloPeriodico());
-            System.out.println("Título do Congresso: " + next.getTituloCongresso());
-			System.out.println("Página inicial: " + next.getPaginaInicial());
-			System.out.println("Página Final: " + next.getPaginaFinal());
-            System.out.println("Numero do volume: " + next.getVolume());
-            System.out.println("Numero: " + next.getNumero());
-			System.out.println("Editora: " + next.getEditora());
-			System.out.println("Mes : " + next.getMes());
-			System.out.println("Ano : " + next.getAno());
-			System.out.println("Autores: " + next.getAutores());
-			System.out.println("Id Local de publicação: " + next.getIdLocPub());
-			System.out.println("Título de publicação: " + next.getTituloPub() + "\n \n");
-
+		Iterator<artigoDeAnaisDeConferencias> it = lista.iterator();
+		
+		while (it.hasNext()) {
+			a = it.next();
+			System.out.println("Título do Artigo: " + a.getTituloArtigo());
+            System.out.println("Título do Livro: " + a.getTituloLivro());
+            System.out.println("Título do Congresso: " + a.getTituloCongresso());
+			System.out.println("Página inicial: " + a.getPaginaInicial());
+			System.out.println("Página Final: " + a.getPaginaFinal());
+            System.out.println("Numero do volume: " + a.getVolume());
+            System.out.println("Numero: " + a.getNumero());
+			System.out.println("Editora: " + a.getEditora());
+			System.out.println("Mes : " + a.getMes());
+			System.out.println("Ano : " + a.getAno());
+			System.out.println("Autores: " + a.getAutores());
+			System.out.println("Id Local de publicação: " + a.getIdLocPub());
+			System.out.println("Título de publicação: " + a.getTituloPub() + "\n \n");
 		}
 	}
 
 	// UPDATE
-	public void alterarArtigoDeAnaisDeConferencia() {
+	public static void alterarArtigoDeAnaisDeConferencia() {
 		Scanner key = new Scanner(System.in);
 		String tituloDoArtigo;
 		String tituloDoLivro;
@@ -175,7 +176,7 @@ public class BdArtigoDeAnaisDeConferencias {
 		String[] colunas;
 		String atributo;
 		String sql = "UPDATE FROM artigo_de_anal_de_conferencia";
-		artigoDeAnalDeConferencia a;
+		artigoDeAnalDeConferencias a;
 		boolean[] opcoes = new boolean[13];
 		int contaVirgulas;
 		
@@ -213,8 +214,8 @@ public class BdArtigoDeAnaisDeConferencias {
 		colunas = colunasEscolhidas.split(",[ ]*");
 		contaVirgulas = colunas.length;
 
-		for (String atributo : colunas)
-			opcoes[Integer.parseInt(atributo) - 1] = true;
+		for (String conteudo : colunas)
+			opcoes[Integer.parseInt(conteudo) - 1] = true;
 		
 		for (int i = 0; i < opcoes.length; i++){
 			if (opcoes[i] == true){
@@ -259,7 +260,7 @@ public class BdArtigoDeAnaisDeConferencias {
 					case 11: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
 							controlaVirgulas(contaVirgulas, sql);
 							break;
-					case default: sql = sql + " SET tituloPub = " + atributo;
+					default: sql = sql + " SET tituloPub = " + atributo;
 				}
 			}
 		}
@@ -281,7 +282,7 @@ public class BdArtigoDeAnaisDeConferencias {
 	}
 
 	// DELETE
-	public void removeLivro() throws SQLException {
+	public static void removeArtigoDeAnalDeConferencia() throws SQLException {
 		Scanner key = new Scanner(System.in);
 		System.out.println("REMOCAO DE ARTIGOS DE ANAIS DE CONFERENCIA\n");
 
@@ -298,13 +299,13 @@ public class BdArtigoDeAnaisDeConferencias {
 	}
 	
 	//SELECT TUPLA ESPECIFICA PELA CHAVE
-	public static artigoDeAnaisDeConferencia selectArtigoChave(String tituloDoArtigo, String tituloDoLivro, String tituloDoCongresso){
+	public static artigoDeAnaisDeConferencias selectArtigoChave(String tituloDoArtigo, String tituloDoLivro, String tituloDoCongresso){
 		String sql = "SELECT * FROM artigo_de_anais_de_conferencia"
-					+ "WHERE titulo_do_artigo = tituloDoArtigo"
-					+ "AND titulo_do_livro = tituloDoLivro"
-					+ "AND titulo_do_congresso = tituloDoCongresso;";
+					+ "WHERE titulo_do_artigo = " + tituloDoArtigo
+					+ "AND titulo_do_livro = " + tituloDoLivro
+					+ "AND titulo_do_congresso = " + tituloDoCongresso + ";";
 
-		artigoDeAnaisDeConferencia a = new artigoDeAnaisDeConferencia();
+		artigoDeAnaisDeConferencias a = new artigoDeAnaisDeConferencias();
 
 		try {
 			conn = bd.getConnection();
@@ -324,7 +325,7 @@ public class BdArtigoDeAnaisDeConferencias {
 			a.setPaginaInicial(rs.getInt("pagina_inicial"));
 			a.setPaginaFinal(rs.getInt("pagina_final"));
 			a.setIdLocPub(rs.getInt("IdLocPub"));
-			a.setTituloPub(rs.getInt("titulo_pub"));
+			a.setTituloPub(rs.getString("titulo_pub"));
 
 			rs.close();
 			stmt.close();
@@ -336,21 +337,21 @@ public class BdArtigoDeAnaisDeConferencias {
 		}
 	}
 	
-	//EXIBE TODAS AS TUPLAS DE UM DETERMINADO ARTIGO DE PERIODICO
-	public static void exibirArtigoDeAnalDeConferencia(artigoDeAnalDeConferencia a){
-		System.out.println("Título do Artigo: " + next.getTituloArtigo());
-		System.out.println("Título do Livro: " + next.getTituloPeriodico());
-		System.out.println("Título do Congresso: " + next.getTituloCongresso());
-		System.out.println("Página inicial: " + next.getPaginaInicial());
-		System.out.println("Página Final: " + next.getPaginaFinal());
-		System.out.println("Numero do volume: " + next.getVolume());
-		System.out.println("Numero: " + next.getNumero());
-		System.out.println("Editora: " + next.getEditora());
-		System.out.println("Mes : " + next.getMes());
-		System.out.println("Ano : " + next.getAno());
-		System.out.println("Autores: " + next.getAutores());
-		System.out.println("Id Local de publicação: " + next.getIdLocPub());
-		System.out.println("Título de publicação: " + next.getTituloPub() + "\n \n");
+	//EXIBE TODAS AS TUPLAS DE UM DETERMINADO ARTIGO DE ANAIS DE CONFERENCIA
+	public static void exibirArtigoDeAnalDeConferencia(artigoDeAnaisDeConferencias a){
+		System.out.println("Título do Artigo: " + a.getTituloArtigo());
+		System.out.println("Título do Livro: " + a.getTituloLivro());
+		System.out.println("Título do Congresso: " + a.getTituloCongresso());
+		System.out.println("Página inicial: " + a.getPaginaInicial());
+		System.out.println("Página Final: " + a.getPaginaFinal());
+		System.out.println("Numero do volume: " + a.getVolume());
+		System.out.println("Numero: " + a.getNumero());
+		System.out.println("Editora: " + a.getEditora());
+		System.out.println("Mes : " + a.getMes());
+		System.out.println("Ano : " + a.getAno());
+		System.out.println("Autores: " + a.getAutores());
+		System.out.println("Id Local de publicação: " + a.getIdLocPub());
+		System.out.println("Título de publicação: " + a.getTituloPub() + "\n \n");
 	}
 	
 	//CONTROLA A QUANTIDADE DE VIRGULAS DOS ARGUMENTOS DO UPDATE

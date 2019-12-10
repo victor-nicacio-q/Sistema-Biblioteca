@@ -9,19 +9,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.*;
-import models.livro;
-
+import models.*;
 
 // INTO TO 
-public class BdLivros {
+public class BdLivro {
 	static connBd bd = new connBd();
 	static Connection conn;
 	
-	public BdLivros() throws SQLException{
+	public BdLivro() throws SQLException{
 		this.conn = connBd.getConnection();
 	}
 	
-	public void postLivro() {		
+	public static void postLivro() {		
 		System.out.println("INSERCAO DE LIVRO\n\n");
 		
 		Scanner key = new Scanner(System.in);
@@ -29,11 +28,23 @@ public class BdLivros {
 		System.out.println("Digite o titulo do livro\n >");
 		String tituloLivro = key.nextLine();
 		
+		System.out.println("Digite o titulo da publicacao\n >");
+		String tituloPub = key.nextLine();
+		
+		System.out.println("Digite o tipo do livro\n >");
+		String tipo = key.nextLine();
+		
+		System.out.println("Digite o nome da editora\n >");
+		String editora = key.nextLine();
+		
 		System.out.println("Digite o numero da edicao do livro\n >");
 		int numeroEdicao = key.nextInt();
 		
-		System.out.println("Digite a data de publicacao do livro\n >");
-		int dataPublicacao = key.nextInt();
+		System.out.println("Digite o ano de publicacao do livro\n >");
+		int anoPublicacao = key.nextInt();
+		
+		System.out.println("Digite o nomes dos autores/editores\n >");
+		String autoresEditores = key.nextLine();
 		
 		System.out.println("Digite o titulo original do livro\n >");
 		String tituloOriginal = key.nextLine();
@@ -41,25 +52,17 @@ public class BdLivros {
 		System.out.println("Digite o numero de paginas do livro\n >");
 		int nPaginas = key.nextInt();
 		
-		System.out.println("Digite o nome da editora\n >");
-		String editora = key.nextLine();
-		
-		System.out.println("Digite o tema da publicacao\n >");
-		String tema = key.nextLine();
-		
-		System.out.println("Digite o meio em que esta publicacao esta disponivel (F, D ou A - Fisico, Digital ou Ambos\n >");
-		String meio = key.nextLine();
-		
-		System.out.println("Digite o descritivo da l")
+		System.out.println("Digite o id de localizacao do livro\n >");
+		int idLocPub = key.nextInt();
 		
 		key.close();
 		
-		String sql = "INSERT INTO livro (titulo_do_livro, titulo_pub, tipo, editora, n_edicao, ano_publicacao, autores_editores, titulo_orig, n_pags, IdLocPub) " +
+		String sql = "INSERT INTO livro (titulo_do_livro, titulo_pub, tipo, editora, n_edicao, ano_publicacao, autores_editores, titulo_orig, n_pags, IdLocPub) " 
 					+ "VALUES (" + tituloDoLivro + ", " 
 					+ tituloPub + ", " 
 					+ tipo + ", " 
 					+ editora + ", " 
-					+ edicao + ", " 
+					+ numeroEdicao + ", " 
 					+ anoPublicacao + ", " 
 					+ autoresEditores + ", " 
 					+ tituloOriginal + ", " 
@@ -67,12 +70,12 @@ public class BdLivros {
 					+ idLocPub + "); ";
 		
 		try{
-			PreparedStatement stmt = this.conn.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, tituloDoLivro);
 			stmt.setString(2, tipo);
 			stmt.setString(3, editora);
-			stmt.setInt(4, edicao);
+			stmt.setInt(4, numeroEdicao);
 			stmt.setInt(5, anoPublicacao);
 			stmt.setString(6, autoresEditores);
 			stmt.setString(7, tituloOriginal);
@@ -95,6 +98,7 @@ public class BdLivros {
 		String sql = "SELECT * FROM livro;";
 		
 		List<livro> lista = new ArrayList<>();
+		livro l;
 		
 		try {
 			conn = bd.getConnection();
@@ -103,7 +107,7 @@ public class BdLivros {
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				livro l = new livro();
+				l = new livro();
 				
 				l.setTituloDoLivro(rs.getString("titulo_do_livro"));
 				l.setTipo(rs.getString("tipo"));
@@ -115,7 +119,7 @@ public class BdLivros {
 				l.setnPaginas(rs.getInt("n_pags"));
 				l.setIdLocPub(rs.getInt("IdLocPub"));
 				l.setTituloPub(rs.getInt("titulo_pub"));
-								
+		
 				lista.add(l);
 				
 				rs.close();
@@ -125,24 +129,25 @@ public class BdLivros {
 			throw new RuntimeException(e);
 		}
 		
-		// LISTAR OS OBJETOS DO LIST<LIST>
-		while(lista.next()){// LISTAR OS REGISTROS DE LIVRO
-			System.out.println("Título do livro: " + next.getTituloDoLivro());
-			System.out.println("Tipo: " + next.getTipo());
-			System.out.println("Editora: " + next.getEditora());
-			System.out.println("Edição: " + next.getEdicao());
-			System.out.println("Ano de Publicação: " + next.getAnoPublicacao());
-			System.out.println("Autores/Editores: " + next.getAutoresEditores());
-			System.out.println("Título original: " + next.getTituloOriginal());
-			System.out.println("Número de páginas: " + next.getnPags());
-			System.out.println("Id Local de publicação: " + next.getIdLocPub());
-			System.out.println("Título de publicação: " + next.getTituloPub() + "\n \n");
-
-		}
+		Iterator<livro> it = lista.iterator();
+		
+		while(it.hasNext()){
+	        l = it.next();
+	        System.out.println("Título do livro: " + l.getTituloDoLivro());
+			System.out.println("Tipo: " + l.getTipo());
+			System.out.println("Editora: " + l.getEditora());
+			System.out.println("Edição: " + l.getEdicao());
+			System.out.println("Ano de Publicação: " + l.getAnoPublicacao());
+			System.out.println("Autores/Editores: " + l.getAutoresEditores());
+			System.out.println("Título original: " + l.getTituloOriginal());
+			System.out.println("Número de páginas: " + l.getnPags());
+			System.out.println("Id Local de publicação: " + l.getIdLocPub());
+			System.out.println("Título de publicação: " + l.getTituloPub() + "\n \n");	
+	    }
 	}
 
 	// UPDATE
-	public void alterarLivro() {
+	public static void alterarLivro() {
 		Scanner key = new Scanner(System.in);
 		String tituloDoLivro;
 		String colunasEscolhidas;
@@ -217,12 +222,12 @@ public class BdLivros {
 					case 8: sql = sql + " SET n_pags = " + Integer.parseInt(atributo);
 							controlaVirgulas(contaVirgulas, sql);
 							break;
-					case default: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
+					default: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
 				}
 			}
 		}
 		
-		sql = sql + " WHERE titulo_do_livro = " + a.getTituloDoLivro() + "; "
+		sql = sql + " WHERE titulo_do_livro = " + a.getTituloDoLivro() + ";";
 	
 		try {
 			conn = bd.getConnection();
@@ -237,7 +242,7 @@ public class BdLivros {
 	}
 	
 	//DELETE
-	public void removeLivro() throws SQLException{
+	public static void removeLivro() throws SQLException{
 		Scanner key = new Scanner(System.in);
 		System.out.println("REMOCAO DE LIVROS\n");
 		
@@ -255,7 +260,7 @@ public class BdLivros {
 	
 	//SELECT TUPLA ESPECIFICA PELA CHAVE
 	public static livro selectLivroChave(String tituloDoLivro){
-		String sql = "SELECT * FROM livro WHERE titulo_do_livro = tituloDoLivro; ";
+		String sql = "SELECT * FROM livro WHERE titulo_do_livro = " + tituloDoLivro + ";";
 
 		livro l = new livro();
 
@@ -274,7 +279,7 @@ public class BdLivros {
 			l.setTituloOriginal(rs.getString("titulo_original"));
 			l.setnPaginas(rs.getInt("n_pags"));
 			l.setIdLocPub(rs.getInt("IdLocPub"));
-			l.setTituloPub(rs.getInt("titulo_pub"));
+			l.setTituloPub(rs.getString("titulo_pub"));
 
 			rs.close();
 			stmt.close();
@@ -286,7 +291,7 @@ public class BdLivros {
 		}
 	}
 	
-	//EXIBE TODAS AS TUPLAS DE UM DETERMINADO LIVRO
+	//EXIBE TODAS OS ATRIBUTOS DE UM DETERMINADO LIVRO
 	public static void exibirLivro(livro l){
 		System.out.println("Título do livro: " + l.getTituloDoLivro());
 		System.out.println("Título de publicação: " + l.getTituloPub());
@@ -296,7 +301,7 @@ public class BdLivros {
 		System.out.println("Ano de Publicação: " + l.getAnoPublicacao());
 		System.out.println("Autores/Editores: " + l.getAutoresEditores());
 		System.out.println("Título original: " + l.getTituloOriginal());
-		System.out.println("Número de páginas: " + l.getnPags());
+		System.out.println("Número de páginas: " + l.getnPaginas());
 		System.out.println("Id Local de publicação: " + l.getIdLocPub());
 		System.out.println();
 	}

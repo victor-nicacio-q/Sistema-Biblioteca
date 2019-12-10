@@ -9,18 +9,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.*;
-import models.artigoDePeriodico;
+import models.*;
 
 // INTO TO 
-public class BdArtigoDeLivro {
+public class BdArtigoDePeriodico {
 	static connBd bd = new connBd();
 	static Connection conn;
 
-	public BdArtigoDeLivro() throws SQLException {
+	public BdArtigoDePeriodico() throws SQLException {
 		this.conn = connBd.getConnection();
 	}
 
-	public void postLivro() {
+	public static void postArtigoDePeriodico() {
 		System.out.println("INSERCAO DE ARTIGOS DE PERIODICO\n\n");
 
 		Scanner key = new Scanner(System.in);
@@ -159,7 +159,7 @@ public class BdArtigoDeLivro {
 	}
 
 	// UPDATE
-	public void alterarArtigoDePeriodico() {
+	public static void alterarArtigoDePeriodico() {
 		Scanner key = new Scanner(System.in);
 		String tituloDoArtigo;
 		String tituloPub;
@@ -237,7 +237,7 @@ public class BdArtigoDeLivro {
 							break;
 					case 10: sql = sql + " SET editores_do_artigo = " + atributo;
 							break;
-					case default: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
+					default: sql = sql + " SET idLocPub = " + Integer.parseInt(atributo);
 				}
 				contaVirgulas = controlaVirgulas(contaVirgulas, sql);
 			}
@@ -260,7 +260,7 @@ public class BdArtigoDeLivro {
 	}
 
 	// DELETE
-	public void removeLivro() throws SQLException {
+	public static void removeArtigoDePeriodico() throws SQLException {
 		Scanner key = new Scanner(System.in);
 		System.out.println("REMOCAO DE ARTIGOS\n");
 

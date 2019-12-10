@@ -67,10 +67,10 @@ public class livro {
 	public void setIdLocPub(int idLocPub) {
 		this.idLocPub = idLocPub;
 	}
-	public int getTituloPub() {
+	public String getTituloPub() {
 		return tituloPub;
 	}
-	public void setTituloPub(int tituloPub) {
+	public void setTituloPub(String tituloPub) {
 		this.tituloPub = tituloPub;
 	}
 	

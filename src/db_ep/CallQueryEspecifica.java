@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.*;
-import models.livro;
+import models.*;
 
 
 // INTO TO 
@@ -21,7 +21,7 @@ public class CallQueryEspecifica {
 		this.conn = connBd.getConnection();
 	}
 	
-	public void listaPublicacoesPorAutor() {		
+	public static void listaPublicacoesPorAutor() {		
 		System.out.println("LISTAGEM DE TODAS AS PUBLICACOES ORDENADAS POR AUTOR\n\n");
 		
 		String sql = "SELECT tituloPub, nome_autor FROM Publicacoes	NATURAL JOIN Autores ORDER BY nome_autor;";
@@ -59,7 +59,7 @@ public class CallQueryEspecifica {
 	    }
 	}
 	
-	public void listaPublicacoesPorTema() {		
+	public static void listaPublicacoesPorTema() {		
 		System.out.println("LISTAGEM DE TODAS AS PUBLICACOES ORDENADAS POR TEMA\n\n");
 		
 		String sql = "SELECT tituloPub, temaPub FROM Publicacoes ORDER BY temaPub;";
@@ -97,7 +97,7 @@ public class CallQueryEspecifica {
 	    }
 	}
 	
-	public void listaPublicacoesPorTitulo() {		
+	public static void listaPublicacoesPorTitulo() {		
 		System.out.println("LISTAGEM DE TODAS AS PUBLICACOES ORDENADAS POR TITULO\n\n");
 		
 		String sql = "SELECT tituloPub FROM Publicacoes	ORDER BY tituloPub;";
@@ -134,7 +134,7 @@ public class CallQueryEspecifica {
 	    }
 	}
 	
-	public void listaArtigosDeAnalDeConferencia() {		
+	public static void listaArtigosDeAnalDeConferencia() {		
 		System.out.println("LISTAGEM DOS ARTIGOS QUE CONSTITUEM UM ANAL DE CONFERENCIA\n\n");
 		System.out.println("Entre com o titulo do anal de conferencia desejado: ");
 		
@@ -175,7 +175,7 @@ public class CallQueryEspecifica {
 	    }
 	}
 	
-	public void listaCronologicaArtigosDePeriodicos() {		
+	public static void listaCronologicaArtigosDePeriodicos() {		
 		System.out.println("LISTAGEM CRONOLOGICA DOS ARTIGOS DE PERIODICOS REFERENTES A UM DETERMINADO PERIODICO, DADO UM ANO DE INICIO E UM DE FIM\n\n");
 		System.out.println("Entre com o titulo do periodico desejado: ");
 		
@@ -227,7 +227,7 @@ public class CallQueryEspecifica {
 	    }
 	}
 	
-	public void listaCronologicaDePublicacoesPorAutor() {		
+	public static void listaCronologicaDePublicacoesPorAutor() {		
 		System.out.println("LISTAGEM CRONOLOGICA DAS PUBLICACOES DE UM DETERMINADO AUTOR\n\n");
 		System.out.println("Entre com o nome do autor: ");
 		
@@ -272,7 +272,7 @@ public class CallQueryEspecifica {
 	    }
 	}
 	
-	public void listaPublicacoesDeUmTemaPorAutor() {		
+	public static void listaPublicacoesDeUmTemaPorAutor() {		
 		System.out.println("LISTAGEM DAS PUBLICACOES DE UM DETERMINADO TEMA ORDENADAS POR AUTOR\n\n");
 		System.out.println("Entre com o tema desejado: ");
 		
@@ -315,7 +315,7 @@ public class CallQueryEspecifica {
 	    }
 	}
 	
-	public void obtemNomeDoLocatario() {		
+	public static void obtemNomeDoLocatario() {		
 		System.out.println("NOME DO LOCATARIO ATUAL A QUEM SE EMPRESTOU UAM DETERMINADA PUBLICACAO\n\n");
 		System.out.println("Entre com o titulo da publicacao: ");
 		
@@ -356,7 +356,7 @@ public class CallQueryEspecifica {
 	    }
 	}
 	
-	public void obtemLocalizacao() {		
+	public static void obtemLocalizacao() {		
 		System.out.println("LOCALIZACAO DE UMA DETERMINADA PUBLICACAO\n\n");
 		System.out.println("Entre com o titulo da publicacao: ");
 		
@@ -376,13 +376,13 @@ public class CallQueryEspecifica {
 				l = new localizacao();
 				
 				l.setIdLocalizacao(rs.getInt("idLocPub"));
-				l.setNumeroFolder(rs.getInt("numero_folder");
-				l.setNumeroUsp(rs.getInt("numero_usp");
-				l.setNomeResponsavel(rs.getString("nome_responsavel");
-				l.setIdComputador(rs.getInt("id_computador");
-				l.setUrl(rs.getString("url");
-				l.setDiretorio(rs.getString("diretorio");
-				l.setDisco(rs.getString("disco");
+				l.setNumeroFolder(rs.getInt("numero_folder"));
+				l.setNumeroUsp(rs.getInt("numero_usp"));
+				l.setNomeResponsavel(rs.getString("nome_responsavel"));
+				l.setIdComputador(rs.getInt("id_computador"));
+				l.setUrl(rs.getString("url"));
+				l.setDiretorio(rs.getString("diretorio"));
+				l.setDisco(rs.getString("disco"));
 			
 				lista.add(l);
 			}

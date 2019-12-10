@@ -1,5 +1,5 @@
-package db_ep;
-
+import db_ep.*;
+import models.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -51,10 +51,6 @@ public class main {
 		System.out.println("0 - Voltar");
 	}
 	
-	public static void rotinaMenu(){
-		
-	}
-	
 	public static void main(String[] args) throws SQLException {
 		int op;
 		Scanner entrada = new Scanner(System.in);
@@ -63,6 +59,7 @@ public class main {
 			imprimeMenu();
 			op = entrada.nextInt();
 			
+			//Menu principal
 			switch(op) {
 			
 			case 0: break;
@@ -72,69 +69,251 @@ public class main {
 				imprimeTabelas();
 				op = entrada.nextInt();
 				
+				//Menu interno case 1
 				switch(op){
 				
-				case: 0 break;
+				case 0: break;
 				
-				case: 1
+				case 1:
 					BdLivro.listarLivros();
 					break;
 				
-				case: 2
+				case 2:
 					BdAnalDeConferencia.listaAnaisDeConferencia();
 					break;
 					
-				case: 3
-					BdArtigoDeAnaisDeConferencia.listarArtigosDeAnaisDeConferencia();
+				case 3:
+					BdArtigoDeAnaisDeConferencias.listarArtigosDeAnaisDeConferencia();
 					break;
 					
-				case: 4
-					// Construir classe de Artigo de Livro
+				case 4:
+					BdArtigoDeLivro.listarArtigoDeLivro();
 					break;
 					
-				case: 5
+				case 5:
 					// Construir classe de Periodico
 					break;
 					
-				case: 6
+				case 6:
 					BdArtigoDePeriodico.listarArtigosDePeriodicos();
 					break;
 					
-				case: 7
+				case 7:
 					// Construir classe de Monografia
 					break;
 					
 				default:
 					System.out.println("Entrada Inválida - tente novamente");
 				}
+				
 				break;
 			
 			case 2:
 				System.out.println("Selecione a tabela em que deseja inserir tuplas:");
 				imprimeTabelas();
 				op = entrada.nextInt();
+				
+				//Menu interno case 2
+				switch(op){
+				
+				case 0: break;
+				
+				case 1:
+					BdLivro.postLivro();
+					break;
+				
+				case 2:
+					BdAnalDeConferencia.postAnalDeConferencia();
+					break;
+					
+				case 3:
+					BdArtigoDeAnaisDeConferencias.postArtigoDeAnalDeConferencia();
+					break;
+					
+				case 4:
+					BdArtigoDeLivro.postArtigoDeLivro();
+					break;
+					
+				case 5:
+					// Construir classe de Periodico
+					break;
+					
+				case 6:
+					BdArtigoDePeriodico.postArtigoDePeriodico();
+					break;
+					
+				case 7:
+					// Construir classe de Monografia
+					break;
+					
+				default:
+					System.out.println("Entrada Inválida - tente novamente");
+				}
+				
 				break;
 				
 			case 3:
 				System.out.println("Selecione a tabela em que deseja remover tuplas:");
 				imprimeTabelas();
 				op = entrada.nextInt();
+				
+				//Menu interno case 3
+				switch(op){
+				
+				case 0: break;
+				
+				case 1:
+					BdLivro.removeLivro();
+					break;
+				
+				case 2:
+					BdAnalDeConferencia.removeAnalDeConferencia();
+					break;
+					
+				case 3:
+					BdArtigoDeAnaisDeConferencias.removeArtigoDeAnalDeConferencia();
+					break;
+					
+				case 4:
+					BdArtigoDeLivro.removeArtigoDeLivro();
+					break;
+					
+				case 5:
+					// Construir classe de Periodico
+					break;
+					
+				case 6:
+					BdArtigoDePeriodico.removeArtigoDePeriodico();
+					break;
+					
+				case 7:
+					// Construir classe de Monografia
+					break;
+					
+				default:
+					System.out.println("Entrada Inválida - tente novamente");
+				}
+				
 				break;
 				
 			case 4:
 				System.out.println("Selecione a tabela em que deseja alterar tuplas:");
 				imprimeTabelas();
 				op = entrada.nextInt();
+				
+				//Menu interno case 4
+				switch(op){
+				
+				case 0: break;
+				
+				case 1:
+					BdLivro.alterarLivro();
+					break;
+				
+				case 2:
+					BdAnalDeConferencia.alterarAnalDeConferencia();
+					break;
+					
+				case 3:
+					BdArtigoDeAnaisDeConferencias.alterarArtigoDeAnaisDeConferencia();
+					break;
+					
+				case 4:
+					BdArtigoDeLivro.alterarArtigoDeLivro();
+					break;
+					
+				case 5:
+					// Construir classe de Periodico
+					break;
+					
+				case 6:
+					BdArtigoDePeriodico.alterarArtigoDePeriodico();
+					break;
+					
+				case 7:
+					// Construir classe de Monografia
+					break;
+					
+				default:
+					System.out.println("Entrada Inválida - tente novamente");
+				}
+				
 				break;
 			
 			case 5: 
 				System.out.println("Selecione a consulta específica que deseja realizar:");
 				imprimeOpcoesConsultasEspecificas();
 				op = entrada.nextInt();
+				
+				//Menu interno case 5
+				switch(op){
+				
+				case 0: break;
+				
+				case 1:
+					CallQueryEspecifica.listaPublicacoesPorAutor();
+					break;
+				
+				case 2:
+					CallQueryEspecifica.listaPublicacoesPorTema();
+					break;
+					
+				case 3:
+					CallQueryEspecifica.listaPublicacoesPorTitulo();
+					break;
+					
+				case 4:
+					CallQueryEspecifica.listaArtigosDeAnalDeConferencia();
+					break;
+					
+				case 5:
+					CallQueryEspecifica.listaCronologicaArtigosDePeriodicos();
+					break;
+					
+				case 6:
+					CallQueryEspecifica.listaCronologicaDePublicacoesPorAutor();
+					break;
+					
+				case 7:
+					CallQueryEspecifica.listaPublicacoesDeUmTemaPorAutor();
+					break;
+				
+				case 8:
+					CallQueryEspecifica.obtemNomeDoLocatario();
+					break;
+					
+				case 9:
+					CallQueryEspecifica.obtemLocalizacao();
+					break;
+
+				default:
+					System.out.println("Entrada Inválida - tente novamente");
+				}
+				
 				break;
 				
 			case 6: 
 				imprimeSubMenuEmprestimos();
+				op = entrada.nextInt();
+				
+				//Menu interno case 6
+				switch(op){
+				
+				case 0: break;
+				
+				case 1:
+					BdLivro.alterarLivro();
+					break;
+				
+				case 2:
+					BdAnalDeConferencia.alterarAnalDeConferencia();
+					break;
+					
+				default:
+					System.out.println("Entrada Inválida - tente novamente");
+				}
+				
+				break;
 				
 			default:
 				System.out.println("Entrada Inválida - tente novamente");
